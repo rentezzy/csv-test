@@ -1,6 +1,6 @@
-import data from "./data.csv";
+import { parsedData } from "./utils/csvParser";
 
 export function App() {
-  console.log(data[0]["Full Name"]);
+  console.log(parsedData);
   return <div></div>;
 }

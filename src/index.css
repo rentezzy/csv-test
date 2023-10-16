@@ -70,6 +70,12 @@ button:focus-visible {
   transition: all 0.1s;
   background-color: rgb(252, 252, 252);
 }
+.table__body td {
+  border-left: 1px solid #ddd;
+}
+.table__body td:nth-child(1) {
+  border-left: unset;
+}
 .table__body tr:hover {
   filter: brightness(85%);
 }
@@ -78,4 +84,5 @@ button:focus-visible {
 }
 .table__error {
   background-color: rgb(212, 79, 79);
+  /* border: 1px solid black; */
 }

@@ -20,11 +20,9 @@ a:hover {
 }
 
 body {
+  width: 100vw;
+  height: 100vh;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {
@@ -49,4 +47,35 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Styles */
+.container {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+}
+.table {
+  margin: 0px auto;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-top: unset;
+  border-spacing: 0;
+  width: 80%;
+}
+.table__head th {
+  border-bottom: 1px solid #ddd;
+}
+.table__body tr {
+  transition: all 0.1s;
+  background-color: rgb(252, 252, 252);
+}
+.table__body tr:hover {
+  filter: brightness(85%);
+}
+.table__body tr:nth-child(2n) {
+  background-color: rgb(238, 238, 238);
+}
+.table__error {
+  background-color: rgb(212, 79, 79);
 }

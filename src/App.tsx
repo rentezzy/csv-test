@@ -1,4 +1,6 @@
 import { DataType, headers, parsedData } from "./utils/csvParser";
+import { duplicateWith } from "./utils/duplicateWith";
+import { format } from "./utils/formating";
 import { cn } from "./utils/validators";
 
 export function App() {
@@ -25,10 +27,10 @@ export function App() {
                     cn(employee, key as keyof DataType) ? "table__error" : ""
                   }
                 >
-                  {value}
+                  {format(employee, key as keyof DataType)}
                 </td>
               ))}
-              <td>-</td>
+              <td>{duplicateWith(parsedData, employee, index)}</td>
             </tr>
           ))}
         </tbody>

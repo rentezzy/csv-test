@@ -1,6 +1,6 @@
 // Csv parser is needed to map types from human readable to JS standard, trim and parse some strings into numbers.
 
-import _data from "../data.csv";
+import _data from "../data/data.csv";
 const data = _data as rawCsv[];
 type rawCsv = {
   "Full Name": string;

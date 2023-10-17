@@ -1,14 +1,15 @@
 // const checkNumber = (value: number) => value < 0;
+import statesList from "../data/states.json";
 import { DataType } from "./csvParser";
+const statesListLong = Object.keys(statesList);
+const statesListShort = Object.values(statesList);
 
 export const cn = (employee: DataType, key: keyof DataType) => {
   switch (key) {
-    case "fullName":
-      return;
     case "phone":
       return checkPhone(employee.phone);
     case "email":
-      return;
+      return checkEmail(employee.email);
     case "age":
       return checkAge(employee.age);
     case "experience":
@@ -16,13 +17,13 @@ export const cn = (employee: DataType, key: keyof DataType) => {
     case "yearlyIncome":
       return checkIncome(employee.yearlyIncome);
     case "hasChildren":
-      return;
+      return checkHasChildren(employee.hasChildren);
     case "licenseStates":
-      return;
+      return checkStates(employee.licenseStates);
     case "expirationDate":
       return checkDate(employee.expirationDate);
     case "licenseNumber":
-      return;
+      return checkLicense(employee.licenseNumber);
   }
 };
 //VALIDATORS: RETURN FALSE IF VALUE IS VALID, AND TRUE IF ISN'T
@@ -36,7 +37,7 @@ const checkExpirience = (expirience: number, age: number) =>
 
 const checkIncome = (value: string) => parseFloat(value) > 1_000_000;
 
-// For this task, it is much better to use lightweight libraries for working with time, such as Luxon, day.js, date-fns, etc.
+// For this task, it's much better to use lightweight libraries for working with time, such as Luxon, day.js, date-fns, etc.
 // But since this is a test task, I decided to do it manually and without RegExp.
 
 const checkDate = (date: string) => {
@@ -86,9 +87,38 @@ const checkDate = (date: string) => {
   return true;
 };
 
-const checkPhone = (phone: string) => {
+export const checkPhone = (phone: string) => {
   if (phone.length > 12 || phone.length < 10) return true;
   const phoneNumber = phone.slice(-10);
   if ("1" + phoneNumber === phone || "+1" + phoneNumber === phone) return false;
   return true;
+};
+
+const checkHasChildren = (hasChildren: string) =>
+  hasChildren !== "FALSE" && hasChildren !== "TRUE" && hasChildren !== "";
+
+const checkLicense = (license: string) =>
+  license.length !== 6 || !RegExp("^[a-zA-Z0-9]*$").test(license);
+
+// RFC2822 RegExp for email (simplyfied)
+
+const checkEmail = (email: string) =>
+  !RegExp(
+    "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+  ).test(email);
+
+export const checkStates = (states: string) => {
+  const splitedStates = states.split("|");
+
+  // console.log(parsedStates);
+  for (const state of splitedStates) {
+    const trimmedState = state.trim();
+    if (
+      statesListLong.includes(trimmedState) ||
+      statesListShort.includes(trimmedState)
+    )
+      continue;
+    return true;
+  }
+  return false;
 };

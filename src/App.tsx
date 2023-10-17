@@ -12,7 +12,7 @@ export function App() {
           type="file"
           onChange={(e) => setFile(e.target.files ? e.target.files[0] : null)}
         ></input>
-        <p>{data.message}</p>
+        {data.message && <p className="controls__error">{data.message}</p>}
       </div>
       <Table data={data.data || []} />
     </main>

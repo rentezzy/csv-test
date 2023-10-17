@@ -33,7 +33,7 @@ const checkAge = (age: number) => age < 21 || isNaN(age);
 
 //Check if age less than 21 or NaN or expirience less than 0 or age less than expirience or expirience is NaN.
 const checkExpirience = (expirience: number, age: number) =>
-  checkAge(age) || expirience < 0 || age <= expirience || isNaN(expirience);
+  expirience < 0 || age <= expirience || isNaN(expirience);
 
 const checkIncome = (value: string) => parseFloat(value) > 1_000_000;
 
@@ -90,7 +90,12 @@ const checkDate = (date: string) => {
 export const checkPhone = (phone: string) => {
   if (phone.length > 12 || phone.length < 10) return true;
   const phoneNumber = phone.slice(-10);
-  if ("1" + phoneNumber === phone || "+1" + phoneNumber === phone) return false;
+  if (
+    "1" + phoneNumber === phone ||
+    "+1" + phoneNumber === phone ||
+    phoneNumber === phone
+  )
+    return false;
   return true;
 };
 
